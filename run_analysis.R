@@ -49,11 +49,11 @@ col_mean <- names_total[grepl("mean", names_total, ignore.case = TRUE)]
 col_std <- names_total[grepl("std", names_total, ignore.case = TRUE)]
 data_mean_std <- subset(data_both, select = col_mean ) %>% cbind(subset(data_both, select = col_std))
 
-# Create tidy data set with the average of each variable for each activity and each subject.
-data_avg <- aggregate(data_both, list(activity = data_both$activityType, subject = data_both$subject), mean)
-data_avg <- subset(data_avg, select =  -c(activityName, subject.1) )
-data_avg <- mutate(data_avg, activityName = activity_labels[activityType,][[2]] )
-data_avg$dataType <- paste("test + train")
 
+# Create tidy data set with the average of each variable for each activity and each subject.
+data_avg <- aggregate(data_mean_std, list(data_mean_std$activityType, data_mean_std$subject), mean)
+data_avg <- subset(data_avg, select =  -c(activityName, Group.1, Group.2) )
+data_avg <- mutate(data_avg, activityName = activity_labels[activityType,][[2]] )
+data_avg$dataType <- paste("test&train")
 # Write data_avg into disk file "data_avg.txt"
 write.table(data_avg, file = "data_avg.txt", row.names = FALSE, sep = " ")
