@@ -51,5 +51,6 @@ data_mean_std <- subset(data_both, select = col_mean ) %>% cbind(subset(data_bot
 
 # Create tidy data set with the average of each variable for each activity and each subject.
 data_avg <- aggregate(data_both, list(activity = data_both$activityType, subject = data_both$subject), mean)
+data_avg <- subset(data_avg, select =  -c(activityName) )
 data_avg <- mutate(data_avg, activityName = activity_labels[activityType,][[2]] )
 data_avg$dataType <- paste("test + train")
