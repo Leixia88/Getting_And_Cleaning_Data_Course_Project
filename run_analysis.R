@@ -54,3 +54,6 @@ data_avg <- aggregate(data_both, list(activity = data_both$activityType, subject
 data_avg <- subset(data_avg, select =  -c(activityName) )
 data_avg <- mutate(data_avg, activityName = activity_labels[activityType,][[2]] )
 data_avg$dataType <- paste("test + train")
+
+# Write data_avg into disk file "data_avg.txt"
+write.table(data_avg, file = "data_avg.txt", row.names = FALSE, sep = " ")
